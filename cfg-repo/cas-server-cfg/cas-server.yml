@@ -1,0 +1,9 @@
+
+server:
+  port: 1151
+
+demo:
+  config-ver: default
+  
+test:
+  from: config-default

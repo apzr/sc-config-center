@@ -1,0 +1,31 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://121.201.110.228:3367/userdb?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: devuser
+    password: devuser228
+  cloud:
+    stream:
+      kafka:
+        #consumer:
+        #  configuration:
+        #    "[security.protocol]": SSL
+        #    ssl:
+        #      key-password: 918918
+        #      keystore-location: E:\\ssl\\kafka.server.keystore.jks
+        #      keystore-password: 918918
+        #      truststore.location: E:\\ssl\\kafka.server.truststore.jks
+        #      truststore.password: 918918
+        binder:
+          zk-nodes: 121.201.110.228:12181
+          brokers: 121.201.110.228:19092
+    bus.trace.enabled: true  # 开启cloud bus的跟踪
+  # zipkin 跟踪配置
+  #zipkin:
+  #  base-url: http://localhost:1166 # zipkin 的地址
+  sleuth: 
+    sampler:
+      percentage: 1.0  # 采样请求百分比，默认值：0.1，即10%
+demo:
+  config-ver: test

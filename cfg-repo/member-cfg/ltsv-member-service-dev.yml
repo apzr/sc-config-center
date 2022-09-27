@@ -1,0 +1,61 @@
+
+server:
+  port: 8060
+
+spring:
+  application:
+    name: ltsv-member-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://121.201.110.228:3367/userdb?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: devuser
+    password: devuser228
+  # zipkin 跟踪配置
+  zipkin:
+    base-url: http://localhost:1166 # zipkin 的地址
+  sleuth: 
+    sampler:
+      percentage: 1.0  # 采样请求百分比，默认值：0.1，即10%
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1160/eureka/
+  instance:
+    prefer-ip-address: true
+
+hystrix:
+  command:
+    default.execution.isolation.thread.timeoutInMilliseconds: 3000  # 设置hystrix超时,默认1000
+  threadpool:
+    default:
+      coreSize: 30        # 线程核心数 默认 10
+      maxQueueSize: 30    # 最大排队长度 默认-1
+      queueSizeRejectionThreshold: 5  #排队线程数量阈值，默认5，达到时直接拒绝，hystrix.threadpool.default.maxQueueSize为-1时该项无效
+
+# feign 配置
+feign:
+  hystrix.enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+
+# 关闭敏感端点验证 
+management:
+  security:
+    enabled: false
+
+# 日志
+logging.level:
+  com.longten.micro.feignclient.wxinfsvc.client.WxcxInfServiceClient: DEBUG
+
+#  数帝日志
+logging:
+  file: log.log
+  level:
+    com.xiaofangtech.sunt.controller: debug
+    com.xiaofangtech.sunt.helper: warn
